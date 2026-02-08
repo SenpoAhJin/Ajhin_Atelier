@@ -7,7 +7,9 @@ from .views import(
     AccountSettingsView,
     MessagingPlaceholderView,
     DeclutterMarketplaceView,
-    SellerDeclutterDashboardView
+    SellerDeclutterDashboardView,
+    DeclutterItemDeactivateView,
+    DeclutterContactSellerView,
 )
 
 
@@ -23,6 +25,18 @@ path('refresh/', TokenRefreshView.as_view()),
 
 # Role-protected dashboard
 path('dashboard/', DashboardView.as_view()),
+
+
+# Decluttering Seller endpoint
+path('declutter/my-items/', SellerDeclutterDashboardView.as_view(), name='seller-declutter-items'),
+path('declutter/items/<int:item_id>/sold/', DeclutterItemDeactivateView.as_view(), name='declutter-item-sold'),
+path('declutter/items/<int:item_id>/contact/', DeclutterContactSellerView.as_view(), name='declutter-contact-seller'),
+
+
+
+
+
+
 ]
 
 

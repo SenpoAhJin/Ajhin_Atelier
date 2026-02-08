@@ -9,6 +9,12 @@ from .serializers import RegisterSerializer
 from rest_framework.permissions import IsAuthenticated
 from .models import Order, DeclutterItem
 from .serializers import OrderSerializer, AccountSerializer, DeclutterItemSerializer
+from rest_framework.generics import ListAPIView
+from rest_framework import status
+from django.shortcuts import get_object_or_404
+
+
+
 
 class HealthCheck(APIView):
     def get(self, request):
@@ -120,11 +126,106 @@ class SellerDeclutterDashboardView(APIView):
         # Fetch only listings created by the logged-in seller
         items = DeclutterItem.objects.filter(seller=request.user)
         serializer = DeclutterItemSerializer(
-            data = request.data,
-            context = {'request': request}
+            items,
+            many=True
         )
 
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
+    
+
+class SellerDeclutterListView(ListAPIView):
+    """
+    Seller Dashboard:
+    Allows to List ONLY decluttering items created by the logged-in seller
+    """
+    permission_classes = [IsAuthenticated]
+    serializer_class = DeclutterItemSerializer
+
+    def get_queryset(self):
+        # Only allow declutter sellers
+        if self.request.user.role != "declutter":
+            return DeclutterItem.objects.none()
+        
+        # Return only items owned by this seller
+        return DeclutterItem.objects.filter(seller=self.request.user)
+    
+
+class DeclutterItemDeactivateView(APIView):
+    """
+    Allows a seller to mark their declutter items as sold (which is considered as 'inactive')
+    """
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, item_id):
+        # Fetch item owned by this seller
+        item = get_object_or_404(
+            DeclutterItem,
+            id=item_id,
+            seller=request.user
+        )
+
+        # Mark item as inactive (sold)
+        item.is_active = False
+        item.save()
+
+        return Response(
+            {"message": "Item marked as sold"},
+            status=status.HTTP_200_OK
+        )
+
+
+class DeclutterContactSellerView(APIView):
+    """
+    Placeholder endpoint for the buyers to contact the seller
+    Messaging system shall be implemented in the future phase
+    """
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, item_id):
+        # Ensure item exists and is active
+        item = get_object_or_404(
+            DeclutterItem,
+            id=item_id,
+            is_active=True
+        )
+
+        return Response(
+            {
+                "message": "Seller has been notified (placehold)",
+                "seller": item.seller.username
+            },
+            status=status.HTTP_200_OK
+        )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
