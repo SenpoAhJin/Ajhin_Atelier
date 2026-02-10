@@ -19,7 +19,7 @@ path('register/', RegisterView.as_view()),
 
 # JWT login endpoint
 path('login/', TokenObtainPairView.as_view()),
-
+path('token/', TokenObtainPairView.as_view()),
 # Token refresh endpoint
 path('refresh/', TokenRefreshView.as_view()),
 

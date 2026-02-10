@@ -8,8 +8,8 @@ class User(AbstractUser):
     # Role choices for the platform
     ROLE_CHOICES = (
         ('customer', 'Customer'),
-        ('declutter', 'Decluttering Seller'),
-        ('external', 'External Store Seller'),
+        ('declutter_seller', 'Decluttering Seller'),
+        ('external_seller', 'External Store Seller'),
         ('admin', 'Admin'),
     )
 
