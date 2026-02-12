@@ -16,10 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from django.views.generic import TemplateView
 urlpatterns = [
+    path('', TemplateView.as_view(template_name="auth/login.html"), name='login'),
     path('admin/', admin.site.urls),
     # API routes (register, login, dashboard, etc.)
     path('api/', include('core.urls')),
     path('api/stores/', include('stores.urls')),
+    path("api/marketplace/", include("marketplace.urls")),
+
 ]

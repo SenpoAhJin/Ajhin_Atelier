@@ -69,6 +69,10 @@ class DeclutterItem(models.Model):
         on_delete=models.CASCADE,
         related_name='declutter_items'
     )
+    
+    # Determines if admin has approved the listing
+    is_approved = models.BooleanField(default=False)
+
 
     # Basic item details
     title = models.CharField(max_length=255)

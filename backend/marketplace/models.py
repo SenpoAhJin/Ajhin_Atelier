@@ -20,6 +20,9 @@ class Product(models.Model):
         related_name='products'
     )
 
+    # Determines if admin has approved the product
+    is_approved = models.BooleanField(default=False)
+
     # Name of the product (maximum of 255 characters)
     name = models.CharField(max_length=255)
     
@@ -62,6 +65,9 @@ class Service(models.Model):
         on_delete=models.CASCADE,
         related_name='services'
     )
+
+    # Determines if admin has approved the product
+    is_approved = models.BooleanField(default=False)
 
     # Title/name of the service (maximum of 255 characters)
     title = models.CharField(max_length=255)
