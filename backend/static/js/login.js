@@ -4,7 +4,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
-    const response = await fetch("/api/token/", {
+    const response = await fetch("/api/accounts/login/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -20,7 +20,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     if (response.ok) {
         localStorage.setItem("access", data.access);
         localStorage.setItem("refresh", data.refresh);
-        window.location.href = "/api/marketplace/";
+        window.location.href = "/";
     } else {
         document.getElementById("error-message").innerText = "Invalid credentials";
     }

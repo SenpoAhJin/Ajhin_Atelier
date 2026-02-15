@@ -3,6 +3,9 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.conf import settings
 from marketplace.models import Category
+from django.utils import timezone
+from datetime import timedelta
+
 
 # Customer User model textending towards Django AbstractUser
 class User(AbstractUser):
@@ -18,9 +21,44 @@ class User(AbstractUser):
     # Role field determines permissions and dashboard routing
     role = models.CharField(max_length=20, choices=ROLE_CHOICES)
 
+    failed_attempts = models.IntegerField(default=0)
+    lock_until = models.DateTimeField(null=True, blank=True)
+    lock_level = models.IntegerField(default=0)  # 0,1,2 (progressive)
+
+    def is_locked(self):
+        if self.lock_until and timezone.now() < self.lock_until:
+            return True
+        return False
+
+    def register_failed_attempt(self):
+        self.failed_attempts += 1
+
+        if self.failed_attempts >= 5:
+            self.lock_level += 1
+            self.failed_attempts = 0
+
+            if self.lock_level == 1:
+                lock_minutes = 5
+            elif self.lock_level == 2:
+                lock_minutes = 10
+            else:
+                lock_minutes = 30
+
+            self.lock_until = timezone.now() + timedelta(minutes=lock_minutes)
+
+        self.save()
+
+    def reset_login_attempts(self):
+        self.failed_attempts = 0
+        self.lock_level = 0
+        self.lock_until = None
+        self.save()
+
     def __str__(self):
         return f"{self.username} ({self.role})"
         # Human-readable representation
+
+    
 
         
 # Order model representing purchases or service commissions

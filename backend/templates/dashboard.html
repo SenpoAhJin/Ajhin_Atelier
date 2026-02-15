@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Marketplace Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+<body>
+
+<div class="container">
+
+    <aside class="sidebar">
+        <h2>Atelier</h2>
+        <ul>
+            <li>Dashboard</li>
+            <li class="active">Marketplace</li>
+            <li>Orders</li>
+            <li>My Listings</li>
+            <li>Profile</li>
+            <li onclick="logout()">Logout</li>
+
+        </ul>
+    </aside>
+
+    <main class="main-content">
+
+        <div class="topbar">
+            <input type="text" placeholder="Search...">
+            <div class="user">👤 Alord</div>
+        </div>
+
+        <h1>Marketplace</h1>
+
+        <div class="filters">
+            <select>
+                <option>All Categories</option>
+                <option>Props & Materials</option>
+                <option>Makeup</option>
+                <option>Wigs</option>
+            </select>
+
+            <select>
+                <option>Sort By</option>
+                <option>Price</option>
+                <option>Newest</option>
+            </select>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <div class="image"></div>
+                <h3>Sample Item</h3>
+                <span class="tag">Props</span>
+                <p class="price">$50</p>
+                <p class="seller">By Seller</p>
+                <button>View Details</button>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+<script src="{% static 'js/dashboard.js' %}"></script>
+</body>
+</html>
