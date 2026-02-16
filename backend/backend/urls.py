@@ -19,7 +19,8 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from core.views import cart_view, orders_view
 
 def dashboard_view(request):
     return render(request, 'dashboard.html')
@@ -30,7 +31,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Front End Pages
-    path("", dashboard_view, name="dashboard"),
+    
 
     path('login/', TemplateView.as_view(template_name="auth/login.html"), name='login'),
      path('register/', TemplateView.as_view(template_name="auth/register.html"), name='register'),
@@ -40,6 +41,9 @@ urlpatterns = [
     path('api/stores/', include('stores.urls')),
     path("api/marketplace/", include("marketplace.urls")),
     path('api/accounts/', include('accounts.urls')),
-   
+    path("", dashboard_view, name="dashboard"),
+    path("api/orders/", include("orders.urls")),
+    path("orders/", orders_view, name="orders"),
+    path("cart/", cart_view, name="cart"),
 
 ]

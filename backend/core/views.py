@@ -55,6 +55,11 @@ class DashboardView(APIView):
             'message': f"Welcome to the {request.user.role} dashboard"
         })
 
+def cart_view(request):
+    return render(request, "cart.html")
+
+def orders_view(request):
+    return render(request, "orders.html")
 
 # Overview dashboard endpoint
 class CustomerOverviewView(APIView):

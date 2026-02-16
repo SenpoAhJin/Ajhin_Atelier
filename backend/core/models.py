@@ -76,7 +76,7 @@ class Order(models.Model):
     customer = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name='orders'
+        related_name='core_orders'
     )
 
 

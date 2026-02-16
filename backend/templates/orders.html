@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Orders</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+<body>
+
+<div class="container">
+
+    <aside class="sidebar">
+        <h2>Atelier</h2>
+        <ul>
+            <li onclick="goToDashboard()">Marketplace</li>
+            <li onclick="goToCart()">Cart</li>
+            <li class="active">Orders</li>
+            <li onclick="logout()">Logout</li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <h1>My Orders</h1>
+        <div id="orders-container"></div>
+    </main>
+
+</div>
+
+<script src="{% static 'js/orders.js' %}"></script>
+</body>
+</html>
