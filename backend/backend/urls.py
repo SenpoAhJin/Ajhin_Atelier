@@ -25,25 +25,31 @@ from core.views import cart_view, orders_view
 def dashboard_view(request):
     return render(request, 'dashboard.html')
 
+def root_redirect(request):
+    return redirect("/login/")
 
 urlpatterns = [
-    # Admin
     path('admin/', admin.site.urls),
 
-    # Front End Pages
-    
+    # ROOT → Login
+    path("", root_redirect),
 
+    # Authentication Pages
     path('login/', TemplateView.as_view(template_name="auth/login.html"), name='login'),
-     path('register/', TemplateView.as_view(template_name="auth/register.html"), name='register'),
-    
-    # API routes (register, login, dashboard, etc.)
+    path('register/', TemplateView.as_view(template_name="auth/register.html"), name='register'),
+
+    # Dashboard Page
+    path("dashboard/", dashboard_view, name="dashboard"),
+
+    # API Routes
     path('api/', include('core.urls')),
     path('api/stores/', include('stores.urls')),
     path("api/marketplace/", include("marketplace.urls")),
     path('api/accounts/', include('accounts.urls')),
-    path("", dashboard_view, name="dashboard"),
     path("api/orders/", include("orders.urls")),
+
+    # Template Pages
     path("orders/", orders_view, name="orders"),
     path("cart/", cart_view, name="cart"),
-
 ]
+

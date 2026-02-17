@@ -5,7 +5,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    padding: 20px;
 }
 
 .login-container {
@@ -17,7 +18,8 @@ body {
 .login-card {
     background: #1c1c2b;
     padding: 40px;
-    width: 350px;
+    width: 100%;
+    max-width: 380px;
     border-radius: 15px;
     box-shadow: 0 0 30px rgba(120, 0, 255, 0.4);
     text-align: center;
@@ -33,14 +35,16 @@ body {
     margin-bottom: 30px;
 }
 
+/* INPUTS */
 input {
     width: 100%;
-    padding: 12px;
+    padding: 12px 15px;
     margin-bottom: 15px;
     border: none;
     border-radius: 8px;
     background: #2a2a40;
     color: white;
+    box-sizing: border-box;
 }
 
 input:focus {
@@ -48,6 +52,36 @@ input:focus {
     box-shadow: 0 0 8px #7b5cff;
 }
 
+/* PASSWORD WRAPPER */
+.password-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.password-wrapper input {
+    margin-bottom: 0;
+    padding-right: 45px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 16px;
+    opacity: 0.6;
+    transition: 0.2s ease;
+    color: #bbb;
+}
+
+.toggle-password:hover {
+    opacity: 1;
+    color: #ffffff;
+}
+
+/* BUTTON */
 button {
     width: 100%;
     padding: 12px;
@@ -57,15 +91,19 @@ button {
     color: white;
     font-weight: bold;
     cursor: pointer;
+    transition: 0.2s ease;
 }
 
 button:hover {
     opacity: 0.9;
+    transform: translateY(-1px);
 }
 
+/* REGISTER TEXT */
 .register-text {
     margin-top: 20px;
     color: #bbb;
+    font-size: 14px;
 }
 
 .register-text a {
@@ -73,7 +111,36 @@ button:hover {
     text-decoration: none;
 }
 
+.register-text a:hover {
+    text-decoration: underline;
+}
+
 .error {
-    color: red;
+    color: #ff4d4d;
     margin-top: 10px;
+    font-size: 14px;
+}
+
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 480px) {
+    .login-card {
+        padding: 25px;
+        border-radius: 12px;
+    }
+
+    .logo {
+        font-size: 22px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+    }
+
+    input {
+        padding: 10px 14px;
+    }
+
+    button {
+        padding: 10px;
+    }
 }

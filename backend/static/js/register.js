@@ -46,3 +46,18 @@ document.getElementById("registerForm").addEventListener("submit", async functio
             data.password ? data.password : "Registration failed";
     }
 });
+
+document.querySelectorAll(".toggle-password").forEach(toggle => {
+    toggle.addEventListener("click", function () {
+        const inputId = this.getAttribute("data-target");
+        const input = document.getElementById(inputId);
+
+        if (input.type === "password") {
+            input.type = "text";
+            this.textContent = "🙈";
+        } else {
+            input.type = "password";
+            this.textContent = "👁";
+        }
+    });
+});

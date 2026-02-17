@@ -15,12 +15,16 @@
         <form id="registerForm">
             <input type="text" id="username" placeholder="Username" required>
             <input type="email" id="email" placeholder="Email" required>
-            <input type="password" id="password" placeholder="Password" required>
+            <div class="password-wrapper">
+                <input type="password" id="password" placeholder="Password" required>
+                <span class="toggle-password" data-target="password">👁</span>
+            </div>
             <small id="strengthMessage"></small>
 
-            <input type="password" id="confirm_password" placeholder="Confirm Password" required>
-            <button type="submit">Register</button>
-        </form>
+            <div class="password-wrapper">
+                <input type="password" id="confirm_password" placeholder="Confirm Password" required>
+                <span class="toggle-password" data-target="confirm_password">👁</span>
+            </div>
 
         <p class="register-text">
             Already have an account?
